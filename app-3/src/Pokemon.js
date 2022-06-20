@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Pokemon = (props) => {
-  const { name } = props.match.params;
+  const location = useLocation();
+  const { page } = location.state;
+  console.log(page);
+  const { name } = props;
   const [pokemon, setPokemon] = useState({});
-  console.log(props);
   useEffect(() => {
-    axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) => {
+    axios.get(`https://pokeapi.co/api/v2/pokemon/${page}`).then((res) => {
       setPokemon(res.data);
     });
-  }, [name]);
+  }, [page]);
 
   return (
     <div>
